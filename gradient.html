@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Horizontal center */
+    align-items: center;     /* Vertical center */
+    background-color: rgba(255, 255, 245, 0.2);
+}
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        border-radius: 20px;
+        width: 400px;
+        background-image: linear-gradient(to right, #F67A75, #4B9777);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 245, 0.2);
+    }
+    #mybtn{
+        display: flex;
+        width: 100px;
+        height: 40px;
+        line-height: 2.5;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        background-color: aquamarine;
+    }
+    #mybtn2{
+        display: flex;
+        width: 100px;
+        height: 40px;
+        line-height: 2.5;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        background-color: rgb(44, 48, 46);
+    }
+    .copyCode {
+        background-color: rgba(255, 255, 245, 0.2);
+        padding: 10px;
+        border: 1px solid #ccc;
+        /* boder left side color */
+        border-left: 5px solid #fff; /* Green */
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 300px;
+    }
+    
+    #mybtn:hover {
+        background-color: #4CAF50; /* Green */
+        color: white;
+    }
+    #mybtn2:hover {
+        background-color: #f5a5a5; /* Dark Gray */
+        color: white;
+    }
+</style>
+<body>
+    <section>
+        <h1>Gradient Generator</h1>
+        <div class="container">
+            
+            <button id="mybtn"></button>
+            <button id="mybtn2"></button>
+
+        </div>
+        <h2>copy your code</h2>
+        <div class="copyCode">
+            background-image: linear-gradient(to right, rgb(92,145,229), rgb(152,63,198))
+        </div>
+    </section>
+    <script>
+        let mybtn = document.getElementById("mybtn");
+        let mybtn2 = document.getElementById("mybtn2");
+        let copyDiv = document.querySelector(".copyCode");
+       
+        
+        const hexValues =() => {
+            let myHexaValues ="0123456789ABCDEF";
+            let myColor = "#";
+
+            for (let i = 0; i < 6; i++) {
+                myColor += myHexaValues[Math.floor(Math.random() * 16)];
+            }
+            return [myColor];
+        };
+        const handleBtn1 = () => {
+            let rgb1 =hexValues();
+            let rgb2 =hexValues();
+            document.body.style.backgroundImage = `linear-gradient(to right,  ${rgb1} ,${rgb2} )`;
+            copyDiv.innerHTML = `background-image: linear-gradient(to right, ${rgb1}, ${rgb2})`;
+            mybtn.innerText = rgb1;
+            mybtn2.innerText = rgb2;
+        };
+        const handleBtn2 = () => {
+            let rgb1 =hexValues();
+            let rgb2 =hexValues();
+            document.body.style.backgroundImage = `linear-gradient(to right,  ${rgb1} , ${rgb2} )`;
+            copyDiv.innerHTML = `background-image: linear-gradient(to right, ${rgb1}, ${rgb2})`;
+            mybtn2.innerText = rgb2;
+            mybtn.innerText = rgb1;
+        };
+
+        mybtn.addEventListener("click", handleBtn1);
+        mybtn2.addEventListener("click", handleBtn2);
+        
+        copyDiv.addEventListener("click", () => {
+            navigator.clipboard.writeText(copyDiv.innerHTML).then(() => {
+                alert("Code copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        });
+    </script>
+</body>
+</html>
